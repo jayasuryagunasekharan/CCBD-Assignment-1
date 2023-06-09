@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<head xmlns="http://www.w3.org/1999/html">
+    <title>Search by Salary</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <center>
+        <h3>CSE 6332 - Assignment-01</h3>
+    </center>
+    <center>
+        <h4>Jayasurya Gunasekharan - 1002060437</h4>
+    </center><br /><br />
+    <center>
+        <table>
+            <tr>
+                <td><a href="/">Home</a></td>
+            </tr>
+            <tr>
+                <td><a href="/upload">Upload CSV File.</a></td>
+            </tr>
+            <tr>
+                <td><a href="/search">Search Name along with their image.</a></td>
+            </tr>
+            <tr>
+                <td><a href="/searchbysal">All images where Salary is less then 99000.</a></td>
+            </tr>
+            <tr>
+                <td><a href="/remove">Remove Record.</a></td>
+            </tr>
+            <tr>
+                <td><a href="/edit">Edit Details.</a></td>
+            </tr>
+            <tr>
+                <td><a href="/uploadpic">Upload Image.</a></td>
+            </tr>
+        </table><br /><br /><br />
+
+        <div>
+            {%if message%}
+            <div id="displayImages"></div>
+
+            {% for t in image_path %}
+            <img src={{t}} alt='Preview' width='100' height='120'>
+            {% endfor %}
+
+            {%endif%}
+            {%if error%}
+            {{error}}
+            {%endif%}
+        </div>
+    </center>
+</body>
+
+</html>

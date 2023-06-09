@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Edit</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <center>
+        <h3>CSE 6332 - Assignment-01</h3>
+    </center>
+    <center>
+        <h4>Jayasurya Gunasekharan - 1002060437</h4>
+    </center><br /><br />
+    <table>
+        <tr>
+            <td><a href="/">Home</a></td>
+        </tr>
+        <tr>
+            <td><a href="/upload">Upload CSV File.</a></td>
+        </tr>
+        <tr>
+            <td><a href="/search">Search Name along with their image.</a></td>
+        </tr>
+        <tr>
+            <td><a href="/searchbysal">All images where Salary is less then 99000.</a></td>
+        </tr>
+        <tr>
+            <td><a href="/remove">Remove Record.</a></td>
+        </tr>
+        <tr>
+            <td><a href="/edit">Edit Details.</a></td>
+        </tr>
+        <tr>
+            <td><a href="/uploadpic">Upload Image.</a></td>
+        </tr>
+    </table><br /><br /><br />
+    <center>
+        <div>
+            {%if name%}
+            <form action="/updatedetails" method="post" enctype="multipart/form-data">
+
+                Name: <input type="text" name="name" value="{{ name }}" /><br />
+                State: <input type="text" name="state" /><br />
+                Salary: <input type="text" name="salary" /><br />
+                Grade: <input type="text" name="grade" /><br />
+                Room: <input type="text" name="room" /><br />
+                Telnum: <input type="text" name="telnum" /><br />
+                Picture: <input type="text" name="picture" /><br />
+                Keyword: <input type="text" name="keyword" /><br /><br />
+                <input type="submit" value="Submit">
+            </form>
+            {%endif%}
+            {%if error%}
+            {{error}}
+            {%endif%}
+            {%if update%}
+            {{update}}
+            {%endif%}
+        </div>
+    </center>
+</body>
+
+</html>

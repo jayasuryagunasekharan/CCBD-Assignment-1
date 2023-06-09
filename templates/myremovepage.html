@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Remove</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <center>
+    <h3>CSE 6332 - Assignment-01</h3>
+  </center>
+  <center>
+    <h4>Jayasurya Gunasekharan - 1002060437</h4>
+  </center><br /><br />
+  <center>
+    <table>
+      <tr>
+        <td><a href="/">Home</a></td>
+      </tr>
+      <tr>
+        <td><a href="/upload">Upload CSV File.</a></td>
+      </tr>
+      <tr>
+        <td><a href="/search">Search Name along with their image.</a></td>
+      </tr>
+      <tr>
+        <td><a href="/searchbysal">All images where Salary is less then 99000.</a></td>
+      </tr>
+      <tr>
+        <td><a href="/remove">Remove Record.</a></td>
+      </tr>
+      <tr>
+        <td><a href="/edit">Edit Details.</a></td>
+      </tr>
+      <tr>
+        <td><a href="/uploadpic">Upload Image.</a></td>
+      </tr>
+    </table><br /><br /><br />
+    <form action="/removedetails" method="post">
+      <h4>Enter Name to Remove Details</h4><br />
+      <input type="text" name="name" /><br /><br />
+      <input type="submit" value="Submit" />
+    </form><br /><br />
+  </center>
+  <div>
+  </div>
+
+</body>
+
+</html>
