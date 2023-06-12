@@ -21,6 +21,32 @@
         .w3-row-padding img {
             margin-bottom: 12px
         }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: none;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 
@@ -28,17 +54,18 @@
 
     <!-- Header -->
     <header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
-        <h1 class="w3-xlarge">CSE 6332 - Assignment 1</h1>
+        <h1 class="w3-xlarge">CSE 6332</h1>
         <h1>Jayasurya Gunasekharan - 1002060437</h1>
+        <img src="static/curly.png" alt="Curly Image">
 
         <div class="w3-padding-32">
             <div class="w3-bar w3-border">
                 <a href="/" class="w3-bar-item w3-button w3-light-grey">Home</a>
                 <a href="/upload" class="w3-bar-item w3-button">Upload CSV File</a>
                 <a href="/search" class="w3-bar-item w3-button">Search Name along with Their Image</a>
-                <a href="/searchbysal" class="w3-bar-item w3-button">All Images where Salary is Less than 99000</a>
+                <a href="/searchbysal" class="w3-bar-item w3-button">Search Number/Year along with their Image</a>
                 <a href="/remove" class="w3-bar-item w3-button">Remove Record</a>
-                <a href="/edit" class="w3-bar-item w3-button">Edit Keywords</a>
+                <a href="/edit" class="w3-bar-item w3-button">Edit Data</a>
                 <a href="/uploadpic" class="w3-bar-item w3-button">Upload Image</a>
             </div>
         </div>
@@ -47,34 +74,60 @@
     <div class="w3-row-padding w3-grayscale" style="margin-bottom:128px">
         <div class="w3-half w3-center">
             <div>
-                <h3>CSV File Data is </h3>
+                <h3>a. Name, Num, Comments: </h3>
                 <table>
                     <tr>
                         <th>Name</th>
                         <th>State</th>
                         <th>Salary</th>
-                        <th>Grade</th>
+                        <th>Num</th>
                         <th>Room</th>
+                        <th>Year</th>
                         <th>Telnum</th>
                         <th>Picture</th>
-                        <th>Keywords</th>
+                        <th>Comments</th>
                     </tr>
                     {% for row in data %}
                     <tr>
                         <td>{{ row['Name'] }}</td>
                         <td>{{ row['State'] }}</td>
                         <td>{{ row['Salary'] }}</td>
-                        <td>{{ row['Grade'] }}</td>
+                        <td>{{ row['Num'] }}</td>
                         <td>{{ row['Room'] }}</td>
+                        <td>{{ row['Year'] }}</td>
                         <td>{{ row['Telnum'] }}</td>
                         <td>{{ row['Picture'] }}</td>
-                        <td>{{ row['Keywords'] }}</td>
+                        <td>{{ row['Comments'] }}</td>
                     </tr>
                     {% endfor %}
                 </table>
             </div>
         </div>
     </div>
+
+    <div class="w3-row-padding w3-grayscale" style="margin-bottom:128px">
+        <div class="w3-half w3-center">
+            <div>
+                <h3>b. Name, Year, Picture: </h3>
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Year</th>
+                        <th>Picture</th>
+                    </tr>
+                    {% for row in data %}
+                    <tr>
+                        <td>{{ row['Name'] }}</td>
+                        <td>{{ row['Year'] }}</td>
+                        <td><img src="{{ url_for('static', filename=row['Picture']) }}" alt="{{ row['Name'] }} Image">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
