@@ -3,30 +3,26 @@ import csv
 import os
 from werkzeug.utils import secure_filename
 
-
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './static/'
-
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     return render_template('myindexpage.html')
 
-
 @app.route("/upload", methods=['GET', 'POST'])
 def upload():
     return render_template('myuploadpage.html')
 
-
 @app.route("/data", methods=['GET', 'POST'])
 def data():
     if request.method == 'POST':
-        file = request.files['csvfile']
+        uploaded_file = request.files['csvfile']
 
-        if file:
-            filename = secure_filename(file.filename)  # make sure the filename is secure
+        if uploaded_file:
+            filename = secure_filename(uploaded_file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            file.save(filepath)
+            uploaded_file.save(filepath)
 
             data = []
             with open(filepath, 'r') as csv_file:
@@ -38,70 +34,64 @@ def data():
 
     return render_template('mydatapage.html')
 
-
 @app.route("/search", methods=['GET', 'POST'])
 def search():
     return render_template('mysearchpage.html')
 
-
 @app.route("/searchimage", methods=['GET', 'POST'])
-def searchimage():
+def search_image():
     if request.method == 'POST':
         name = request.form['name']
         csv_reader = csv.DictReader(open('static/people.csv'))
         temp_path = ''
-        for r in csv_reader:
-            if name == r['Name']:
-                temp_path = '../static/' + r['Picture']
+        for row in csv_reader:
+            if name == row['Name']:
+                temp_path = '../static/' + row['Picture']
         if temp_path != '':
-            return render_template('mysearchpage.html', image_path=temp_path, message="found")
+            return render_template('mysearchpage.html', image_path=temp_path, message="Found Data!!")
         else:
-            return render_template('mysearchpage.html', error="Picture did not find!")
-
+            return render_template('mysearchpage.html', error="Picture not found :(")
 
 @app.route("/searchbysal", methods=['GET', 'POST'])
-def searchbysal():
+def search_by_salary():
     csv_reader = csv.DictReader(open('static/people.csv'))
     temp_path = []
 
-    for r in csv_reader:
-        if r['Salary'] == '' or r['Salary'] == ' ':
-            r['Salary'] = 99000;
-        if int(float(r['Salary'])) < 99000:
-            if r['Picture'] != ' ':
-                temp_path.append('static/' + r['Picture'])
+    for row in csv_reader:
+        if row['Salary'] == '' or row['Salary'] == ' ':
+            row['Salary'] = 99000
+        if int(float(row['Salary'])) < 99000:
+            if row['Picture'] != ' ':
+                temp_path.append('static/' + row['Picture'])
                 print(temp_path)
-                print(int(float(r['Salary'])))
+                print(int(float(row['Salary'])))
 
     print(len(temp_path))
     if temp_path != '':
-        return render_template('mysearchbysalpage.html', image_path=temp_path,  message="found")
+        return render_template('mysearchbysalpage.html', image_path=temp_path, message="Found Data!!")
     else:
-        return render_template('mysearchbysalpage.html', error="Picture did not find!")
-
+        return render_template('mysearchbysalpage.html', error="Picture not found :(")
 
 @app.route("/edit", methods=['GET', 'POST'])
 def edit():
     return render_template('myeditpage.html')
 
-
 @app.route("/editdetails", methods=['GET', 'POST'])
-def editdetails():
+def edit_details():
     if request.method == 'POST':
         name = request.form['name']
         csv_reader = csv.DictReader(open('static/people.csv'))
         temp_name = ''
-        for r in csv_reader:
-            if name == r['Name']:
+        for row in csv_reader:
+            if name == row['Name']:
                 temp_name = name
         if temp_name != '':
             return render_template('mydisplaypage.html', name=temp_name)
         else:
-            return render_template('mydisplaypage.html', error="No Record Found!")
-
+            return render_template('mydisplaypage.html', error="Record not found :(")
 
 @app.route("/updatedetails", methods=['GET', 'POST'])
-def updatedetails():
+def update_details():
     if request.method == 'POST':
         name = request.form['name']
         state = request.form['state']
@@ -118,11 +108,11 @@ def updatedetails():
 
         with open('static/people.csv', 'r') as f1:
             csv_reader = csv.reader(f1)
-            for r in csv_reader:
-                if name == r[0]:
+            for row in csv_reader:
+                if name == row[0]:
                     line.append(temp)
                 else:
-                    line.append(r)
+                    line.append(row)
                 cnt += 1
 
             csv_write = open('static/people.csv', 'w')
@@ -134,27 +124,25 @@ def updatedetails():
             if cnt != 0:
                 return render_template('mydisplaypage.html', update="One Record Updated Successfully.")
             else:
-                return render_template('mydisplaypage.html', error="No Record Found!")
-
+                return render_template('mydisplaypage.html', error="Record not found :(")
 
 @app.route("/remove", methods=['GET', 'POST'])
 def remove():
     return render_template('myremovepage.html')
 
 @app.route("/removedetails", methods=['GET', 'POST'])
-def removedetails():
+def remove_details():
     if request.method == 'POST':
         name = request.form['name']
         cnt = 0
         line = list()
         with open('static/people.csv', 'r') as f1:
             csv_reader = csv.reader(f1)
-            for r in csv_reader:
-                line.append(r)
-                if name == r[0]:
-                    line.remove(r)
-                    cnt+=1
-
+            for row in csv_reader:
+                line.append(row)
+                if name == row[0]:
+                    line.remove(row)
+                    cnt += 1
 
             csv_write = open('static/people.csv', 'w')
             for i in line:
@@ -163,21 +151,20 @@ def removedetails():
                 csv_write.write('\n')
 
         if cnt != 0:
-            return render_template('myremovedetailspage.html', message="Record Remove Successfully.")
+            return render_template('myremovedetailspage.html', message="Record Removed Successfully.")
         else:
-            return render_template('myremovedetailspage.html', error="Record Not Found.")
+            return render_template('myremovedetailspage.html', error="Record not found :(")
 
 @app.route("/uploadpic", methods=['GET', 'POST'])
-def remove1():
+def upload_pic():
     return render_template('myuploadpicpage.html')
 
 @app.route("/uploadnew", methods=['GET', 'POST'])
-def uploadnew():
+def upload_new():
     if request.method == 'POST':
         file = request.files['img']
-        file.save('static/'+file.filename)
-        return render_template('myuploaddisplaypage.html', msg="Image Upload Successfully.")
-
+        file.save('static/' + file.filename)
+        return render_template('myuploaddisplaypage.html', msg="Image Uploaded Successfully.")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,47 +1,55 @@
 <!DOCTYPE html>
+<html>
 
 <head>
-    <title>Edit</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Upload Display Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1 {
+            font-family: "Raleway", Arial, sans-serif
+        }
+
+        h1 {
+            letter-spacing: 6px
+        }
+
+        .w3-row-padding img {
+            margin-bottom: 12px
+        }
+    </style>
 </head>
 
 <body>
-    <center>
-        <h3>CSE 6332 - Assignment-01</h3>
-    </center>
-    <center>
-        <h4>Jayasurya Gunasekharan - 1002060437</h4>
-    </center><br /><br />
-    <center>
-        <table>
-            <tr>
-                <td><a href="/">Home</a></td>
-            </tr>
-            <tr>
-                <td><a href="/upload">Upload CSV File.</a></td>
-            </tr>
-            <tr>
-                <td><a href="/search">Search Name along with their image.</a></td>
-            </tr>
-            <tr>
-                <td><a href="/searchbysal">All images where Salary is less then 99000.</a></td>
-            </tr>
-            <tr>
-                <td><a href="/remove">Remove Record.</a></td>
-            </tr>
-            <tr>
-                <td><a href="/edit">Edit Details.</a></td>
-            </tr>
-            <tr>
-                <td><a href="/uploadpic">Upload Image.</a></td>
-            </tr>
-        </table><br /><br /><br />
-    </center>
 
-    <body>
-        <center>
+    <!-- Header -->
+    <header class="w3-panel w3-center w3-opacity" style="padding:128px 16px">
+        <h1 class="w3-xlarge">CSE 6332 - Assignment 1</h1>
+        <h1>Jayasurya Gunasekharan - 1002060437</h1>
+
+        <div class="w3-padding-32">
+            <div class="w3-bar w3-border">
+                <a href="/" class="w3-bar-item w3-button w3-light-grey">Home</a>
+                <a href="/upload" class="w3-bar-item w3-button">Upload CSV File</a>
+                <a href="/search" class="w3-bar-item w3-button">Search Name along with Their Image</a>
+                <a href="/searchbysal" class="w3-bar-item w3-button">All Images where Salary is Less than 99000</a>
+                <a href="/remove" class="w3-bar-item w3-button">Remove Record</a>
+                <a href="/edit" class="w3-bar-item w3-button">Edit Keywords</a>
+                <a href="/uploadpic" class="w3-bar-item w3-button">Upload Image</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="w3-row-padding w3-grayscale" style="margin-bottom:128px">
+        <div class="w3-half w3-right">
             <h4>{{ msg }}</h4>
-        </center>
-    </body>
+        </div>
+    </div>
 
-    </html>
+</body>
+
+</html>
